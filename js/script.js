@@ -3,9 +3,9 @@
 import KeySetEng from "./modules/key-set-en.js";
 import KeySetRu from "./modules/key-set-ru.js";
 import toCreateBtn from "./modules/to-create-btn.js";
+import addActiveClassToBtn from "./modules/add-active-class-to-btn.js";
 import toCreateKeyboardWrapper from "./modules/to-create-kb-wrapper.js";
 import toCreateKeyboard from "./modules/to-create-kb.js";
-import toChangeLang from "./modules/to-Change-Lang.js";
 
 window.addEventListener("DOMContentLoaded", () => {
 
@@ -17,23 +17,12 @@ window.addEventListener("DOMContentLoaded", () => {
     let lang = "en",
         keySet = KEY_SET_EN;
 
+    /* initial create */
     toCreateKeyboardWrapper(lang);
-
     toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
+    addActiveClassToBtn('.keyboard__btn');
 
-
-
-    /* click */
-
-    const btns = document.querySelectorAll('.keyboard__btn');
-
-    btns.forEach( btn => {
-        btn.addEventListener('click', () => {
-            btns.forEach( item => {item.classList.remove('keyboard__btn_active')})
-            console.log(btn);
-            btn.classList.add('keyboard__btn_active');
-        });
-    })
+   
 
 
     /* tap btns together */
@@ -53,7 +42,8 @@ window.addEventListener("DOMContentLoaded", () => {
                     keySet = KEY_SET_EN;
                 }                 
                 toCreateKeyboardWrapper(lang);
-                toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
+                toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);                
+                addActiveClassToBtn('.keyboard__btn');
             }
 
         });
