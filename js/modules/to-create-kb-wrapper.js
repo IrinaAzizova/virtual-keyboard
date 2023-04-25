@@ -4,7 +4,7 @@ const toCreateKeyboardWrapper = (lang) => {
     <div class="overlay">
         <section class="keyboard">
             <h1 class="keyboard__heading">the on-screen keyboard was developed on a Xiaomi laptop on Windows 11 (version 22H2) and Google Chrome (version 112.0.5615.138)</h1>
-            <textarea class="keyboard__text" name="keyboard-text" id="keyboard-text" placeholder="Start to type"></textarea>
+            <div class="keyboard__text" name="keyboard-text" id="keyboard-text"></div>
             <div class="keyboard__wrapper"></div>
             <p class="keyboard__note">* ${text}</p>
 

@@ -36,10 +36,10 @@
         margin: 0 auto;
     }
     &__text {
-        resize: vertical;
+        background-color: #fff;
         padding: 1rem;
         min-height: 3rem;
-        border: transparent 2px solid;
+        border: rgba(0,0,0,0.4) 1px solid;
         &:focus {
             outline: none;
             border: #f1da36 2px solid;
