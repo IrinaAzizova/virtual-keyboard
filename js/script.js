@@ -17,6 +17,7 @@ window.addEventListener('DOMContentLoaded', () => {
 	let lang, keySet;
 
     let text = '';
+    const carriage = '<span class="blink">|</span>';
 
 
 	if (localStorage.getItem('lang')) {
@@ -32,7 +33,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	/* initial create */
 
-	toCreateKeyboardWrapper(lang, text);
+	toCreateKeyboardWrapper(lang, text,carriage);
 	toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
 	addActiveClassToBtn('.keyboard__btn');
 
@@ -52,9 +53,10 @@ window.addEventListener('DOMContentLoaded', () => {
             btn.addEventListener('click', (event) => {
                 console.log(event.target.dataset.character);
                 if (!noTap.has(event.target.dataset.character)) {
-                   textarea.innerHTML += event.target.dataset.character;
+                    let carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
+                    textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character + '<span class="blink">|</span>';
                 }
-                checkBtn(event.target.dataset.character, textarea)
+                checkBtn(event.target.dataset.character, textarea, carriage)
             });
         });
     }
@@ -85,7 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('lang', lang);
                 
             console.log(text);
-				toCreateKeyboardWrapper(lang, text);
+				toCreateKeyboardWrapper(lang, text, carriage);
 				toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
 				addActiveClassToBtn('.keyboard__btn');
                 toClickKey();
