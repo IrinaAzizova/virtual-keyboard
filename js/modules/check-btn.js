@@ -6,7 +6,7 @@ const checkBtn = (value, textarea) => {
         textarea.innerHTML += '<br>';
     }
     if (value == 'Tab') {
-        textarea.innerHTML += '&nbsp;';
+        textarea.innerHTML += '&emsp;';
     }
 }
 

@@ -16,6 +16,8 @@ window.addEventListener('DOMContentLoaded', () => {
 		KEY_SET_RU = KeySetRu();
 	let lang, keySet;
 
+    let text = '';
+
 
 	if (localStorage.getItem('lang')) {
 		lang = localStorage.getItem('lang');
@@ -30,7 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	/* initial create */
 
-	toCreateKeyboardWrapper(lang);
+	toCreateKeyboardWrapper(lang, text);
 	toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
 	addActiveClassToBtn('.keyboard__btn');
 
@@ -65,8 +67,9 @@ window.addEventListener('DOMContentLoaded', () => {
 		let pressed = new Set();
 
 		document.addEventListener('keydown', (event) => {
-			pressed.add(event.code);
-
+			pressed.add(event.code);            
+            text = document.querySelector('#keyboard-text').innerHTML;
+            console.log(text);
             /* change language */
 			if (
 				(pressed.has('AltLeft') && pressed.has('ShiftLeft')) ||
@@ -80,10 +83,12 @@ window.addEventListener('DOMContentLoaded', () => {
 					keySet = KEY_SET_EN;
 				}                
                 localStorage.setItem('lang', lang);
-
-				toCreateKeyboardWrapper(lang);
+                
+            console.log(text);
+				toCreateKeyboardWrapper(lang, text);
 				toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
 				addActiveClassToBtn('.keyboard__btn');
+                toClickKey();
 			}
 		});
 
