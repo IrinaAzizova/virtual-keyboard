@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
     let shiftStatus = false,
-        altStatus = false;
+        capsStatus = false;
 
     /* click */
 
@@ -56,7 +56,14 @@ window.addEventListener('DOMContentLoaded', () => {
                     let carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
                     textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character + '<span class="blink">|</span>';
                 }
-                checkBtn(event.target.dataset.character, textarea, carriage)
+                if (event.target.dataset.character == 'Caps Lock') {
+                    capsStatus = !capsStatus;
+                    const capsBtn = document.querySelector('[data-character="Caps Lock"');
+                    capsBtn.classList.add('')
+                    console.log(capsBtn);
+                }
+                checkBtn(event.target.dataset.character, textarea, carriage);
+                console.log(capsStatus);
             });
         });
     }
@@ -71,6 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
 		document.addEventListener('keydown', (event) => {
 			pressed.add(event.code);            
             text = document.querySelector('#keyboard-text').innerHTML;
+            text = text.slice(0, text.indexOf(carriage));
             console.log(text);
             /* change language */
 			if (

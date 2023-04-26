@@ -2,7 +2,6 @@ const checkBtn = (value, textarea, carriage) => {
     let carrInd = textarea.innerHTML.indexOf(carriage);
     if (value == 'Backspace') {        
         if (textarea.innerHTML !== carriage) {
-            console.log(textarea.innerHTML.slice(carrInd-4, carrInd));
             if (textarea.innerHTML.slice(carrInd-4, carrInd) == '<br>') {
                 textarea.innerHTML = textarea.innerHTML.slice(0, carrInd-4) + carriage;
             } else {
@@ -15,7 +14,7 @@ const checkBtn = (value, textarea, carriage) => {
     }
     if (value == 'Tab') {
         textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + '&emsp;' + carriage;
-    }
+    }    
 }
 
 export default checkBtn;
