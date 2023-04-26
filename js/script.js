@@ -19,6 +19,8 @@ window.addEventListener('DOMContentLoaded', () => {
     let text = '';
     const carriage = '<span class="blink">|</span>';
 
+    let shiftStatus = false,
+        capsStatus = false;
 
 	if (localStorage.getItem('lang')) {
 		lang = localStorage.getItem('lang');
@@ -39,31 +41,37 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
 
-    let shiftStatus = false,
-        capsStatus = false;
-
     /* click */
 
     const toClickKey = () => {
         const btns = document.querySelectorAll('.keyboard__btn'),
               textarea = document.querySelector('#keyboard-text'),
+              capsBtn = document.querySelector('[data-character="Caps Lock"'),
               noTap = new Set(['Backspace', 'Tab', 'del', 'Caps Lock', 'Enter', 'Shift', 'Ctrl', 'Alt', 'Meta']);
 
         btns.forEach( btn => {
             btn.addEventListener('click', (event) => {
-                console.log(event.target.dataset.character);
+                
                 if (!noTap.has(event.target.dataset.character)) {
                     let carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
-                    textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character + '<span class="blink">|</span>';
+                    if (capsStatus) {
+                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character.toUpperCase() + '<span class="blink">|</span>';
+                    } else {
+                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character.toLowerCase() + '<span class="blink">|</span>';
+                    }
+                    
                 }
                 if (event.target.dataset.character == 'Caps Lock') {
                     capsStatus = !capsStatus;
-                    const capsBtn = document.querySelector('[data-character="Caps Lock"');
-                    capsBtn.classList.add('')
-                    console.log(capsBtn);
+                    if (!capsStatus) {
+                        capsBtn.classList.remove('keyboard__btn_active');
+                    }
                 }
                 checkBtn(event.target.dataset.character, textarea, carriage);
-                console.log(capsStatus);
+                if (capsStatus) {
+                    console.log(capsStatus);
+                    capsBtn.classList.add('keyboard__btn_active');
+                }
             });
         });
     }

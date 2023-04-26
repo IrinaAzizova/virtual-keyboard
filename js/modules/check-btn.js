@@ -14,7 +14,7 @@ const checkBtn = (value, textarea, carriage) => {
     }
     if (value == 'Tab') {
         textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + '&emsp;' + carriage;
-    }    
+    }
 }
 
 export default checkBtn;
