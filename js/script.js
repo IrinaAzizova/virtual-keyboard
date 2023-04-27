@@ -19,7 +19,8 @@ window.addEventListener('DOMContentLoaded', () => {
     let text = '';
     const carriage = '<span class="blink">|</span>';
 
-    let shiftStatus = false,
+    let shiftLeftStatus = false,
+        shiftRightStatus = false,
         capsStatus = false;
 
 	if (localStorage.getItem('lang')) {
@@ -47,31 +48,54 @@ window.addEventListener('DOMContentLoaded', () => {
         const btns = document.querySelectorAll('.keyboard__btn'),
               textarea = document.querySelector('#keyboard-text'),
               capsBtn = document.querySelector('[data-character="Caps Lock"'),
-              noTap = new Set(['Backspace', 'Tab', 'del', 'Caps Lock', 'Enter', 'Shift', 'Ctrl', 'Alt', 'Meta']);
+              shiftLeftBtn = document.querySelector('[data-character="shiftLeft"'),
+              shiftRightBtn = document.querySelector('[data-character="shiftRight"'),
+              noTap = new Set(['Backspace', 'Tab', 'del', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta']);
 
         btns.forEach( btn => {
             btn.addEventListener('click', (event) => {
-                
-                if (!noTap.has(event.target.dataset.character)) {
+                if (!noTap.has(event.currentTarget.dataset.character)) {
                     let carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
-                    if (capsStatus) {
-                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character.toUpperCase() + '<span class="blink">|</span>';
+                    if (event.currentTarget.dataset.span && (shiftLeftStatus || shiftRightStatus)) {
+                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.span + '<span class="blink">|</span>';
+                        console.log(event.currentTarget.dataset.span);
+                    } else if (capsStatus || shiftLeftStatus || shiftRightStatus) {
+                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toUpperCase() + '<span class="blink">|</span>';
                     } else {
-                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.target.dataset.character.toLowerCase() + '<span class="blink">|</span>';
-                    }
-                    
+                        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toLowerCase() + '<span class="blink">|</span>';
+                    }            
                 }
-                if (event.target.dataset.character == 'Caps Lock') {
-                    capsStatus = !capsStatus;
-                    if (!capsStatus) {
-                        capsBtn.classList.remove('keyboard__btn_active');
-                    }
-                }
+                
                 checkBtn(event.target.dataset.character, textarea, carriage);
-                if (capsStatus) {
-                    console.log(capsStatus);
-                    capsBtn.classList.add('keyboard__btn_active');
+
+                const toChangeCapsShiftStatus = (character, charStatus, btn) => {
+                    if (event.target.dataset.character == character) {
+                        charStatus = !charStatus;
+
+                        if (character == 'shiftLeft' && charStatus) {
+                            shiftRightStatus = false;
+                            shiftRightBtn.classList.remove('keyboard__btn_active');
+                        } else if (character == 'shiftRight' && charStatus) {
+                            shiftLeftStatus = false;
+                            shiftLeftBtn.classList.remove('keyboard__btn_active');
+                        }
+
+                        if (!charStatus) {
+                            btn.classList.remove('keyboard__btn_active');
+                        }
+                        console.log(charStatus);
+                    }
+
+                    if (charStatus) {
+                        btn.classList.add('keyboard__btn_active');
+                    }
+
+                    return charStatus;
                 }
+                
+                capsStatus = toChangeCapsShiftStatus('Caps Lock', capsStatus, capsBtn);
+                shiftLeftStatus = toChangeCapsShiftStatus('shiftLeft', shiftLeftStatus, shiftLeftBtn);
+                shiftRightStatus = toChangeCapsShiftStatus('shiftRight', shiftRightStatus, shiftRightBtn);
             });
         });
     }

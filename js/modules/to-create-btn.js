@@ -6,6 +6,7 @@ const toCreateBtn = ({key, span, character}) => {
     btn.innerHTML = key;
     if (span) {
         keySpan.textContent = span;
+        btn.dataset.span = span;
         btn.append(keySpan);
     }
     return btn;

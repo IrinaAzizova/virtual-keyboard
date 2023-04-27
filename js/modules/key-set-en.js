@@ -49,7 +49,7 @@ const KeySetEng = () =>{
             {key: "Enter", width: "106px", bgc: true}
         ],
         [
-            {key: "Shift", width: "179px", bgc: true},
+            {key: "Shift", width: "179px", bgc: true, character: "shiftLeft"},
             {key: "z"},
             {key: "x"},
             {key: "c"},
@@ -61,7 +61,7 @@ const KeySetEng = () =>{
             {key: ".", span: ">"},
             {key: "/", span: "?"},
             {key: "&#9650;", bgc: true},
-            {key: "Shift", bgc: true}
+            {key: "Shift", bgc: true, character: "shiftRight"}
         ],
         [
             {key: "Ctrl", width: "80px", bgc: true},
