@@ -40,6 +40,7 @@
         padding: 1rem;
         min-height: 3rem;
         border: rgba(0,0,0,0.4) 1px solid;
+        resize: vertical;
         &:focus {
             outline: none;
             border: #f1da36 2px solid;

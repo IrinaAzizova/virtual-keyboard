@@ -1,14 +1,17 @@
 /* eslint-disable linebreak-style */
-const toCreateBtn = ({
-  key, span, character, code,
+/* eslint-disable padded-blocks */
+
+// eslint-disable-next-line no-unused-vars
+const createBtn = ({
+  key, character, code, span,
 }) => {
   const btn = document.createElement('button');
   btn.classList.add('keyboard__btn');
   btn.dataset.character = character || key;
   btn.dataset.code = code || false;
-  const keySpan = document.createElement('span');
-  btn.innerHTML = key;
+  btn.textContent = key;
   if (span) {
+    const keySpan = document.createElement('span');
     keySpan.textContent = span;
     btn.dataset.span = span;
     btn.append(keySpan);
@@ -16,4 +19,4 @@ const toCreateBtn = ({
   return btn;
 };
 
-export default toCreateBtn;
+export default createBtn;
