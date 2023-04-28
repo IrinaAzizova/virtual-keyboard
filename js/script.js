@@ -1,6 +1,8 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-param-reassign */
 /* eslint-disable import/extensions */
+/* eslint-disable padded-blocks */
+/* eslint-disable no-multiple-empty-lines */
 import KeySetEng from './modules/key-set-en.js';
 import KeySetRu from './modules/key-set-ru.js';
 import toCreateBtn from './modules/to-create-btn.js';
@@ -10,6 +12,8 @@ import toCreateKeyboard from './modules/to-create-kb.js';
 import checkBtn from './modules/check-btn.js';
 
 window.addEventListener('DOMContentLoaded', () => {
+
+
   /* page layout */
 
   const KEY_SET_EN = KeySetEng();
@@ -33,11 +37,16 @@ window.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('lang', lang);
   }
 
+
+
   /* initial create */
 
   toCreateKeyboardWrapper(lang, text, carriage);
   toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
   addActiveClassToBtn('.keyboard__btn');
+  
+  console.log();
+
 
   /* click */
 
@@ -97,6 +106,35 @@ window.addEventListener('DOMContentLoaded', () => {
   };
   toClickKey();
 
+
+
+
+  /* tap btns */
+
+  const keyCapture = () => {
+    document.addEventListener('keydown', (event) => {
+      console.log(event.code);
+      const btns = document.querySelectorAll('.keyboard__btn');
+      btns.forEach((element) => {
+        if (event.code === element.dataset.code) {
+          btns.forEach((item) => {
+            item.classList.remove('keyboard__btn_active');
+          });
+          element.classList.add('keyboard__btn_active');
+          setTimeout(() => {
+            element.classList.remove('keyboard__btn_active');
+          }, 300);
+          element.click();
+          console.log(element.dataset.code);
+        }
+      });
+
+    });
+  };
+
+  keyCapture();
+
+
   /* tap btns together */
 
   function runOnKeys() {
@@ -123,6 +161,8 @@ window.addEventListener('DOMContentLoaded', () => {
         toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
         addActiveClassToBtn('.keyboard__btn');
         toClickKey();
+        shiftLeftStatus = false;
+        shiftRightStatus = false;
       }
     });
 
@@ -132,13 +172,4 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
   runOnKeys();
-
-  const keyCapture = () => {
-    document.addEventListener('keydown', (e) => {
-      const { key } = e;
-      console.log(key);
-    });
-  };
-
-  keyCapture();
 });
