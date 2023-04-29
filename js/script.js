@@ -54,18 +54,28 @@ window.addEventListener('DOMContentLoaded', () => {
     const capsBtn = document.querySelector('[data-character="Caps Lock"');
     const shiftLeftBtn = document.querySelector('[data-character="shiftLeft"');
     const shiftRightBtn = document.querySelector('[data-character="shiftRight"');
-    const noTap = new Set(['Backspace', 'Tab', 'del', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta']);
+    const noTap = new Set(['Backspace', 'del', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta', '▲', '◀', '▼', '▶']);
 
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
         if (!noTap.has(event.currentTarget.dataset.character)) {
+          if (event.currentTarget.dataset.character === 'Tab') {
+            event.currentTarget.dataset.character = '&emsp;';
+          }
+
           const carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
+
           if (event.currentTarget.dataset.span && (shiftLeftStatus || shiftRightStatus)) {
             textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.span}<span class="blink">|</span>`;
           } else if (capsStatus || shiftLeftStatus || shiftRightStatus) {
             textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toUpperCase()}<span class="blink">|</span>`;
           } else {
-            textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toLowerCase()}<span class="blink">|</span>`;
+            let arr = textarea.innerHTML.split(carriage);
+            arr[2] = arr[1];
+            arr[1] = '<span class="blink">|</span>';
+            arr[0] += event.currentTarget.dataset.character;
+            console.log(arr);
+            textarea.innerHTML = arr.join('');
           }
         }
 
@@ -111,7 +121,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const keyCapture = () => {
     document.addEventListener('keydown', (event) => {
-      console.log(event.code);
       const btns = document.querySelectorAll('.keyboard__btn');
       btns.forEach((element) => {
         if (event.code === element.dataset.code) {
@@ -123,7 +132,6 @@ window.addEventListener('DOMContentLoaded', () => {
             element.classList.remove('keyboard__btn_active');
           }, 300);
           element.click();
-          console.log(element.dataset.code);
         }
       });
 

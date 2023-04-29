@@ -74,7 +74,7 @@ const KeySetEng = () => [
     { key: ',', span: '<', code: 'Comma' },
     { key: '.', span: '>', code: 'Period' },
     { key: '/', span: '?', code: 'Slash' },
-    { key: '&#9650;', bgc: true, code: 'ArrowUp' },
+    { key: '▲', bgc: true, code: 'ArrowUp' },
     {
       key: 'Shift', bgc: true, character: 'shiftRight', code: 'ShiftRight',
     },
@@ -90,9 +90,9 @@ const KeySetEng = () => [
     {
       key: 'Ctrl', width: '80px', bgc: true, code: 'ControlRight',
     },
-    { key: '&#9668;', bgc: true, code: 'ArrowLeft' },
-    { key: '&#9660;', bgc: true, code: 'ArrowDown' },
-    { key: '&#9658;', bgc: true, code: 'ArrowRight' },
+    { key: '◀', bgc: true, code: 'ArrowLeft' },
+    { key: '▼', bgc: true, code: 'ArrowDown' },
+    { key: '▶', bgc: true, code: 'ArrowRight' },
   ],
 ];
 
