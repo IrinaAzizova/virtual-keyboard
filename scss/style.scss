@@ -40,7 +40,7 @@
         padding: 1rem;
         min-height: 3rem;
         border: rgba(0,0,0,0.4) 1px solid;
-        resize: vertical;
+        word-wrap: break-word;
         &:focus {
             outline: none;
             border: #f1da36 2px solid;
@@ -69,7 +69,7 @@
         outline: none;
         border: none;
         text-transform: capitalize;
-        transition: all 0.8s;
+        transition: all 0.3s;
         box-shadow: inset -8px 0 8px rgba(0,0,0,0.15),/*тень*/
                     inset 0 -8px 8px rgba(0,0,0,0.25)/* ,
                         0 0 0 2px rgba(0,0,0,0.75) */,
