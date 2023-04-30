@@ -8,6 +8,10 @@ const checkBtn = (value, textarea, carriage) => {
     arr[0] += '&emsp;';
   }
 
+  if (value === 'Enter') {
+    arr[0] += '<br>';
+  }
+
   if (value == 'Backspace') {
     if (arr[0].slice(-4) === '<br>') {
       arr[0] = arr[0].slice(0, -4);
@@ -28,7 +32,7 @@ const checkBtn = (value, textarea, carriage) => {
     }
   }
 
-  if (value === '▲' || value === '◀') {
+  if (/* value === '▲' ||  */value === '◀') {
     if (arr[0].length > 0) {
       if (arr[0].slice(-4) === '<br>') {
         arr[0] = arr[0].slice(0, -4);
@@ -42,7 +46,7 @@ const checkBtn = (value, textarea, carriage) => {
       }
     }
   }
-  if (value === '▼' || value === '▶') {
+  if (/* value === '▼' ||  */value === '▶') {
     if (arr[1].length > 0) {
       if (arr[1].slice(0, 4) === '<br>') {
         arr[0] = `${arr[0]}<br>`;
@@ -55,6 +59,22 @@ const checkBtn = (value, textarea, carriage) => {
         arr[1] = arr[1].slice(1);
       }
     }
+  }
+
+  if (value === '▼') {
+    const textArr = textarea.innerHTML.split('<br>');
+    textArr.forEach((str, i) => {
+      const indexOfCar = str.indexOf(carriage);
+      if (indexOfCar !== -1) {
+        if (textArr[i + 1]) {
+          str = str.replace(carriage, '');
+          textArr[i] = str;
+          const result = textArr[i + 1].slice(0, indexOfCar) + carriage + textArr[i + 1].slice(indexOfCar);
+          textArr[i + 1] = result;
+          console.log(result);
+        }
+      }
+    });
   }
 
   const result = arr[0] + carriage + arr[1];

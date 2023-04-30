@@ -54,16 +54,11 @@ window.addEventListener('DOMContentLoaded', () => {
     const capsBtn = document.querySelector('[data-character="Caps Lock"');
     const shiftLeftBtn = document.querySelector('[data-character="shiftLeft"');
     const shiftRightBtn = document.querySelector('[data-character="shiftRight"');
-    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta', '▲', '◀', '▼', '▶']);
+    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta'/* , '▲', '▼' */, '◀', '▶']);
 
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
         if (!noTap.has(event.currentTarget.dataset.character)) {
-          if (event.currentTarget.dataset.character === 'Tab') {
-            event.currentTarget.dataset.character = '&emsp;';
-          } else if (event.currentTarget.dataset.character === 'Enter') {
-            event.currentTarget.dataset.character = '<br>';
-          }
 
           const carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
 
@@ -73,6 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
             textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toUpperCase()}<span class="blink">|</span>`;
           } else {
             const arr = textarea.innerHTML.split(carriage);
+            // eslint-disable-next-line prefer-destructuring
             arr[2] = arr[1];
             arr[1] = '<span class="blink">|</span>';
             if (capsStatus || shiftLeftStatus || shiftRightStatus) {
@@ -93,19 +89,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
             if (character === 'shiftLeft' && charStatus) {
               shiftRightStatus = false;
-              shiftRightBtn.classList.remove('keyboard__btn_active');
+              shiftRightBtn.classList.remove('keyboard__btn_shift');
             } else if (character === 'shiftRight' && charStatus) {
               shiftLeftStatus = false;
-              shiftLeftBtn.classList.remove('keyboard__btn_active');
+              shiftLeftBtn.classList.remove('keyboard__btn_shift');
             }
 
             if (!charStatus) {
-              btn.classList.remove('keyboard__btn_active');
+              btn.classList.remove('keyboard__btn_shift');
             }
           }
 
           if (charStatus) {
-            btn.classList.add('keyboard__btn_active');
+            btn.classList.add('keyboard__btn_shift');
           }
 
           return charStatus;
