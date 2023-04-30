@@ -54,13 +54,15 @@ window.addEventListener('DOMContentLoaded', () => {
     const capsBtn = document.querySelector('[data-character="Caps Lock"');
     const shiftLeftBtn = document.querySelector('[data-character="shiftLeft"');
     const shiftRightBtn = document.querySelector('[data-character="shiftRight"');
-    const noTap = new Set(['Backspace', 'del', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta', '▲', '◀', '▼', '▶']);
+    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta', '▲', '◀', '▼', '▶']);
 
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
         if (!noTap.has(event.currentTarget.dataset.character)) {
           if (event.currentTarget.dataset.character === 'Tab') {
             event.currentTarget.dataset.character = '&emsp;';
+          } else if (event.currentTarget.dataset.character === 'Enter') {
+            event.currentTarget.dataset.character = '<br>';
           }
 
           const carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
@@ -70,11 +72,14 @@ window.addEventListener('DOMContentLoaded', () => {
           } else if (capsStatus || shiftLeftStatus || shiftRightStatus) {
             textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toUpperCase()}<span class="blink">|</span>`;
           } else {
-            let arr = textarea.innerHTML.split(carriage);
+            const arr = textarea.innerHTML.split(carriage);
             arr[2] = arr[1];
             arr[1] = '<span class="blink">|</span>';
-            arr[0] += event.currentTarget.dataset.character;
-            console.log(arr);
+            if (capsStatus || shiftLeftStatus || shiftRightStatus) {
+              arr[0] += event.currentTarget.dataset.character.toUpperCase();
+            } else {
+              arr[0] += event.currentTarget.dataset.character;
+            }
             textarea.innerHTML = arr.join('');
           }
         }

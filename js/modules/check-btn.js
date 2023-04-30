@@ -2,45 +2,63 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-param-reassign */
 const checkBtn = (value, textarea, carriage) => {
-  const carrInd = textarea.innerHTML.indexOf(carriage);
+  const arr = textarea.innerHTML.split(carriage);
+
+  if (value === 'Tab') {
+    arr[0] += '&emsp;';
+  }
+
   if (value == 'Backspace') {
-    if (textarea.innerHTML !== carriage) {
-      if (textarea.innerHTML.slice(carrInd - 4, carrInd) == '<br>'
-                    || textarea.innerHTML.slice(carrInd - 4, carrInd) == '&gt;'
-                    || textarea.innerHTML.slice(carrInd - 4, carrInd) == '&lt;') {
-        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd - 4) + carriage;
-      } else if (textarea.innerHTML.slice(carrInd - 5, carrInd) == '&amp;') {
-        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd - 5) + carriage;
+    if (arr[0].slice(-4) === '<br>') {
+      arr[0] = arr[0].slice(0, -4);
+    } else if (arr[0].slice(-5) === '&amp;') {
+      arr[0] = arr[0].slice(0, -5);
+    } else {
+      arr[0] = arr[0].slice(0, -1);
+    }
+  }
+
+  if (value === 'del') {
+    if (arr[1].slice(0, 4) === '<br>') {
+      arr[1] = arr[1].slice(4);
+    } else if (arr[1].slice(0, 5) === '&amp;') {
+      arr[1] = arr[1].slice(5);
+    } else {
+      arr[1] = arr[1].slice(1);
+    }
+  }
+
+  if (value === '▲' || value === '◀') {
+    if (arr[0].length > 0) {
+      if (arr[0].slice(-4) === '<br>') {
+        arr[0] = arr[0].slice(0, -4);
+        arr[1] = `<br>${arr[1]}`;
+      } else if (arr[0].slice(-5) === '&amp;') {
+        arr[0] = arr[0].slice(0, -5);
+        arr[1] = `&amp;${arr[1]}`;
       } else {
-        textarea.innerHTML = textarea.innerHTML.slice(0, carrInd - 1) + carriage;
+        arr[1] = arr[0].slice(-1) + arr[1];
+        arr[0] = arr[0].slice(0, -1);
       }
     }
   }
-  if (value === 'Enter') {
-    textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd)}<br>${carriage}`;
-  }/* 
-  if (value === 'Tab') {
-    textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd)}&emsp;${carriage}`;
-  } */
-  if (value === '▲' || value === '◀') {
-    let arr = textarea.innerHTML.split(carriage);
-    if (arr[0].length > 0) {
-      let result = arr[0].split('');
-      result.push(result[result.length - 1]);
-      result[result.length - 2] = carriage;
-      result.push(arr[1]);
-      textarea.innerHTML = result.join('');
-    }
-  }
   if (value === '▼' || value === '▶') {
-    let arr = textarea.innerHTML.split(carriage);
     if (arr[1].length > 0) {
-      let result = arr[1].split('');
-      arr[0] += result[0];
-      result[0] = carriage;
-      textarea.innerHTML = arr[0] + result.join('');
+      if (arr[1].slice(0, 4) === '<br>') {
+        arr[0] = `${arr[0]}<br>`;
+        arr[1] = arr[1].slice(4);
+      } else if (arr[1].slice(0, 5) === '&amp;') {
+        arr[0] = `${arr[0]}&amp;`;
+        arr[1] = arr[1].slice(5);
+      } else {
+        arr[0] += arr[1][0];
+        arr[1] = arr[1].slice(1);
+      }
     }
   }
+
+  const result = arr[0] + carriage + arr[1];
+  textarea.innerHTML = result;
 };
 
 export default checkBtn;

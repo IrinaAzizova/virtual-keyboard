@@ -71,8 +71,8 @@ const KeySetEng = () => [
     { key: 'b', code: 'KeyB' },
     { key: 'n', code: 'KeyN' },
     { key: 'm', code: 'KeyM' },
-    { key: ',', span: '<', code: 'Comma' },
-    { key: '.', span: '>', code: 'Period' },
+    { key: ',', span: '≺', code: 'Comma' },
+    { key: '.', span: '≻', code: 'Period' },
     { key: '/', span: '?', code: 'Slash' },
     { key: '▲', bgc: true, code: 'ArrowUp' },
     {
