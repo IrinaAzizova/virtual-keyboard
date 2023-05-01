@@ -15,7 +15,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   /* page layout */
-
   const KEY_SET_EN = KeySetEng();
   const KEY_SET_RU = KeySetRu();
   let lang; let
@@ -38,16 +37,13 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 
 
-
   /* initial create */
-
   toCreateKeyboardWrapper(lang, text, carriage);
   toCreateKeyboard(keySet, '.keyboard__wrapper', toCreateBtn);
   addActiveClassToBtn('.keyboard__btn');
 
 
   /* click */
-
   const toClickKey = () => {
     const btns = document.querySelectorAll('.keyboard__btn');
     const textarea = document.querySelector('#keyboard-text');
@@ -59,15 +55,15 @@ window.addEventListener('DOMContentLoaded', () => {
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
         if (!noTap.has(event.currentTarget.dataset.character)) {
-
-          const carrInd = textarea.innerHTML.indexOf('<span class="blink">|</span>');
+          const arr = textarea.innerHTML.split(carriage);
 
           if (event.currentTarget.dataset.span && (shiftLeftStatus || shiftRightStatus)) {
-            textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.span}<span class="blink">|</span>`;
+            arr[0] += event.currentTarget.dataset.span + carriage;
+            textarea.innerHTML = arr.join('');
           } else if (capsStatus || shiftLeftStatus || shiftRightStatus) {
-            textarea.innerHTML = `${textarea.innerHTML.slice(0, carrInd) + event.currentTarget.dataset.character.toUpperCase()}<span class="blink">|</span>`;
+            arr[0] += event.currentTarget.dataset.character.toUpperCase() + carriage;
+            textarea.innerHTML = arr.join('');
           } else {
-            const arr = textarea.innerHTML.split(carriage);
             // eslint-disable-next-line prefer-destructuring
             arr[2] = arr[1];
             arr[1] = '<span class="blink">|</span>';
@@ -116,10 +112,7 @@ window.addEventListener('DOMContentLoaded', () => {
   toClickKey();
 
 
-
-
   /* tap btns */
-
   const keyCapture = () => {
     document.addEventListener('keydown', (event) => {
       const btns = document.querySelectorAll('.keyboard__btn');
@@ -143,7 +136,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
 
   /* tap btns together */
-
   function runOnKeys() {
     const pressed = new Set();
 
