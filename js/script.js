@@ -115,6 +115,7 @@ window.addEventListener('DOMContentLoaded', () => {
   /* tap btns */
   const keyCapture = () => {
     document.addEventListener('keydown', (event) => {
+      event.preventDefault();
       const btns = document.querySelectorAll('.keyboard__btn');
       btns.forEach((element) => {
         if (event.code === element.dataset.code) {
