@@ -1,5 +1,4 @@
 /* eslint-disable linebreak-style */
-/* eslint-disable eqeqeq */
 /* eslint-disable no-param-reassign */
 const checkBtn = (value, textarea, carriage) => {
   const arr = textarea.innerHTML.split(carriage);
@@ -12,7 +11,7 @@ const checkBtn = (value, textarea, carriage) => {
     arr[0] += '<br>';
   }
 
-  if (value == 'Backspace') {
+  if (value === 'Backspace') {
     if (arr[0].slice(-4) === '<br>') {
       arr[0] = arr[0].slice(0, -4);
     } else if (arr[0].slice(-5) === '&amp;') {
@@ -32,7 +31,7 @@ const checkBtn = (value, textarea, carriage) => {
     }
   }
 
-  if (/* value === '▲' ||  */value === '◀') {
+  if (value === '◀') {
     if (arr[0].length > 0) {
       if (arr[0].slice(-4) === '<br>') {
         arr[0] = arr[0].slice(0, -4);
@@ -46,7 +45,7 @@ const checkBtn = (value, textarea, carriage) => {
       }
     }
   }
-  if (/* value === '▼' ||  */value === '▶') {
+  if (value === '▶') {
     if (arr[1].length > 0) {
       if (arr[1].slice(0, 4) === '<br>') {
         arr[0] = `${arr[0]}<br>`;
@@ -69,9 +68,9 @@ const checkBtn = (value, textarea, carriage) => {
         if (textArr[i + 1]) {
           str = str.replace(carriage, '');
           textArr[i] = str;
-          const result = textArr[i + 1].slice(0, indexOfCar) + carriage + textArr[i + 1].slice(indexOfCar);
+          const result = textArr[i + 1].slice(0, indexOfCar) + carriage
+              + textArr[i + 1].slice(indexOfCar);
           textArr[i + 1] = result;
-          console.log(result);
         }
       }
     });
