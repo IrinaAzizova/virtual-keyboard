@@ -13,6 +13,7 @@ import checkBtn from './modules/check-btn.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
+  alert('Засабмитила по ошибке деплой вместо пулл реквеста. ссылка на пулл реквест: https://github.com/IrinaAzizova/virtual-keyboard/pull/1');
 
   /* page layout */
   const KEY_SET_EN = KeySetEng();
