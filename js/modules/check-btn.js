@@ -32,6 +32,8 @@ const checkBtn = (value, textarea, carriage) => {
       arr[1] = arr[1].slice(4);
     } else if (arr[1].slice(0, 5) === '&amp;') {
       arr[1] = arr[1].slice(5);
+    } else if (arr[1].slice(0, 6) === '&nbsp;') {
+      arr[1] = arr[1].slice(6);
     } else {
       arr[1] = arr[1].slice(1);
     }
