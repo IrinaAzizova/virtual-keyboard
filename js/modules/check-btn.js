@@ -7,6 +7,10 @@ const checkBtn = (value, textarea, carriage) => {
     arr[0] += '&emsp;';
   }
 
+  if (value === ' ') {
+    arr[0] += '&nbsp;';
+  }
+
   if (value === 'Enter') {
     arr[0] += '<br>';
   }
@@ -16,6 +20,8 @@ const checkBtn = (value, textarea, carriage) => {
       arr[0] = arr[0].slice(0, -4);
     } else if (arr[0].slice(-5) === '&amp;') {
       arr[0] = arr[0].slice(0, -5);
+    } else if (arr[0].slice(-6) === '&nbsp;') {
+      arr[0] = arr[0].slice(0, -6);
     } else {
       arr[0] = arr[0].slice(0, -1);
     }
@@ -39,6 +45,9 @@ const checkBtn = (value, textarea, carriage) => {
       } else if (arr[0].slice(-5) === '&amp;') {
         arr[0] = arr[0].slice(0, -5);
         arr[1] = `&amp;${arr[1]}`;
+      } else if (arr[0].slice(-6) === '&nbsp;') {
+        arr[0] = arr[0].slice(0, -6);
+        arr[1] = `&nbsp;${arr[1]}`;
       } else {
         arr[1] = arr[0].slice(-1) + arr[1];
         arr[0] = arr[0].slice(0, -1);
@@ -53,6 +62,9 @@ const checkBtn = (value, textarea, carriage) => {
       } else if (arr[1].slice(0, 5) === '&amp;') {
         arr[0] = `${arr[0]}&amp;`;
         arr[1] = arr[1].slice(5);
+      } else if (arr[1].slice(0, 6) === '&nbsp;') {
+        arr[0] = `${arr[0]}&nbsp;`;
+        arr[1] = arr[1].slice(6);
       } else {
         arr[0] += arr[1][0];
         arr[1] = arr[1].slice(1);

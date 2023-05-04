@@ -18,12 +18,10 @@ window.addEventListener('DOMContentLoaded', () => {
   /* page layout */
   const KEY_SET_EN = KeySetEng();
   const KEY_SET_RU = KeySetRu();
-  let lang; let
-    keySet;
-
-  let text = '';
   const carriage = '<span class="blink">|</span>';
-
+  let lang;
+  let keySet;
+  let text = '';
   let shiftLeftStatus = false;
   let shiftRightStatus = false;
   let capsStatus = false;
@@ -51,7 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const capsBtn = document.querySelector('[data-character="Caps Lock"');
     const shiftLeftBtn = document.querySelector('[data-character="shiftLeft"');
     const shiftRightBtn = document.querySelector('[data-character="shiftRight"');
-    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', 'Ctrl', 'Alt', 'Meta'/* , '▲', '▼' */, '◀', '▶']);
+    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', ' ', 'Ctrl', 'Alt', 'Meta'/* , '▲', '▼' */, '◀', '▶']);
 
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
