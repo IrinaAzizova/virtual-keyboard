@@ -13,9 +13,7 @@ import checkBtn from './modules/check-btn.js';
 
 window.addEventListener('DOMContentLoaded', () => {
 
-  alert('Засабмитила по ошибке деплой вместо пулл реквеста. ссылка на пулл реквест: https://github.com/IrinaAzizova/virtual-keyboard/pull/1');
-
-  /* page layout */
+  /* start initial */
   const KEY_SET_EN = KeySetEng();
   const KEY_SET_RU = KeySetRu();
   const carriage = '<span class="blink">|</span>';
@@ -26,6 +24,7 @@ window.addEventListener('DOMContentLoaded', () => {
   let shiftRightStatus = false;
   let capsStatus = false;
 
+  /* save lang */
   if (localStorage.getItem('lang')) {
     lang = localStorage.getItem('lang');
     keySet = lang === 'en' ? KEY_SET_EN : KEY_SET_RU;
@@ -49,7 +48,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const capsBtn = document.querySelector('[data-character="Caps Lock"');
     const shiftLeftBtn = document.querySelector('[data-character="shiftLeft"');
     const shiftRightBtn = document.querySelector('[data-character="shiftRight"');
-    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', ' ', 'Ctrl', 'Alt', 'Meta'/* , '▲', '▼' */, '◀', '▶']);
+    const noTap = new Set(['Backspace', 'del', 'Tab', 'Caps Lock', 'Enter', 'shiftLeft', 'shiftRight', ' ', 'Ctrl', 'Alt', 'Meta', '◀', '▶']);
 
     btns.forEach((btn) => {
       btn.addEventListener('click', (event) => {
